@@ -1633,10 +1633,9 @@ class bing():
                 data = json.dumps({
                     "messages": [],
                     "conversation_style": "Balanced",
-                    "model": "GPT-4",
+                    "model": "Bing",
                     "markdown": False,
-                    "stream": False,
-                    "model": "Bing"
+                    "stream": False
                 })
 
             response = requests.post(url="https://nexra.aryahcr.cc/api/chat/complements", headers=headers, data=data, stream=strm)

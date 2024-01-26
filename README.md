@@ -27,7 +27,7 @@ res = gpt(messages=[
         "content": "Hello, my name is Yandri."
     },
     {
-        "role": "assitant",
+        "role": "assistant",
         "content": "Hello, Yandri! How are you today?"
     }
 ], prompt="Can you repeat my name?", model="GPT-4", markdown=False)
