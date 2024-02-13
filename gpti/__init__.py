@@ -100,6 +100,101 @@ class gpt:
     def result(self):
         return self.result
 
+class gptweb:
+    error = None
+    result = None
+    def __init__(self, prompt="", markdown=False) -> None:
+        try:
+            headers = {
+                "Content-Type": "application/json"
+            }
+
+            data = json.dumps({})
+            try:
+                data = json.dumps({
+                    "prompt": prompt if prompt is not None else "",
+                    "markdown": markdown if markdown is not None else False
+                })
+            except Exception as e:
+                data = json.dumps({
+                    "prompt": "",
+                    "markdown": False
+                })
+
+            response = requests.post(url="https://nexra.aryahcr.cc/api/chat/gptweb", headers=headers, data=data)
+            if response.status_code == 200:
+                err = None
+                result = None
+
+                count = -1
+                for i in range(len(response.text)):
+                    if count <= -1:
+                        if response.text[i] == "{":
+                            count = i
+                    else:
+                        break
+                
+                if count <= -1:
+                    err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                    result = None
+                else:
+                    try:
+                        js = response.text[count:]
+                        js = json.loads(js)
+                        if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                            result = js
+                            err = None
+                        else:
+                            err = js
+                            result = None
+                    except Exception as e:
+                        err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                        result = None
+
+                    if result == None and err != None:
+                        self.error = err
+                        self.result = None
+                    else:
+                        self.result = result
+                        self.error = None
+            else:
+                data_err = {}
+                try:
+                    data_err = json.loads(response.text)
+                except Exception as e:
+                    data_err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                
+                self.error = data_err
+                self.result = None
+        except Exception as e:
+            self.error = {
+                "code": 500,
+                "status": False,
+                "error": "INTERNAL_SERVER_ERROR",
+                "message": "general (unknown) error"
+            }
+            self.result = None
+        pass
+    def error(self):
+        return self.error
+    def result(self):
+        return self.result
+
 class dalle:
     class v1:
         error = None
@@ -111,7 +206,11 @@ class dalle:
                 }
                 err = False
                 
-                data = json.dumps({})
+                data = json.dumps({
+                    "prompt": "",
+                    "model": "dalle"
+                })
+
                 try:
                     data = json.dumps({
                         "prompt": prompt if prompt is not None else "",
@@ -121,6 +220,135 @@ class dalle:
                     data = json.dumps({
                         "prompt": "",
                         "model": "dalle"
+                    })
+                
+                response = requests.post(url="https://nexra.aryahcr.cc/api/image/complements", headers=headers, data=data)
+                if response.status_code == 200:
+                    err = None
+                    result = None
+
+                    count = -1
+                    for i in range(len(response.text)):
+                        if count <= -1:
+                            if response.text[i] == "{":
+                                count = i
+                        else:
+                            break
+                    
+                    if count <= -1:
+                        err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                        result = None
+                    else:
+                        try:
+                            js = response.text[count:]
+                            js = json.loads(js)
+                            if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                                result = js
+                                err = None
+                            else:
+                                err = js
+                                result = None
+                        except Exception as e:
+                            err = {
+                                "code": 500,
+                                "status": False,
+                                "error": "INTERNAL_SERVER_ERROR",
+                                "message": "general (unknown) error"
+                            }
+                            result = None
+
+                        if result == None and err != None:
+                            self.error = err
+                            self.result = None
+                        else:
+                            self.result = result
+                            self.error = None
+                else:
+                    data_err = {}
+                    try:
+                        data_err = json.loads(response.text)
+                    except Exception as e:
+                        data_err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                    
+                    self.error = data_err
+                    self.result = None
+            except Exception as e:
+                self.error = {
+                    "code": 500,
+                    "status": False,
+                    "error": "INTERNAL_SERVER_ERROR",
+                    "message": "general (unknown) error"
+                }
+                self.result = None
+            pass
+        def error(self):
+            return self.error
+        def result(self):
+            return self.result
+    class v2:
+        error = None
+        result = None
+        def __init__(self, prompt="", data={
+            "gpu": "",
+            "prompt_improvement": ""
+        }) -> None:
+            try:
+                headers = {
+                    "Content-Type": "application/json"
+                }
+                err = False
+                
+                md = {
+                    "gpu": False,
+                    "prompt_improvement": False
+                }
+
+                try:
+                    prompt = prompt if prompt is not None else ""
+                except Exception as e:
+                    prompt = ""
+
+                try :
+                    if data.get("gpu") != None:
+                        md["gpu"] = data.get("gpu")
+                    else:
+                        md["gpu"] = False
+
+                    if data.get("prompt_improvement") != None:
+                        md["prompt_improvement"] = data.get("prompt_improvement")
+                    else:
+                        md["prompt_improvement"] = False
+                except Exception as e:
+                    md = {
+                        "gpu": False,
+                        "prompt_improvement": False
+                    }
+
+                data = {}
+                try:
+                    data = json.dumps({
+                        "prompt": prompt,
+                        "model": "dalle2",
+                        "data": md
+                    })
+                except Exception as e:
+                    data = json.dumps({
+                        "prompt": "",
+                        "model": "dalle2",
+                        "data": {
+                            "gpu": False,
+                            "prompt_improvement": False
+                        }
                     })
                 
                 response = requests.post(url="https://nexra.aryahcr.cc/api/image/complements", headers=headers, data=data)
@@ -347,7 +575,7 @@ class prodia():
                     else:
                         md["negative_prompt"] = ""
                 except Exception as e:
-                    md: {
+                    md = {
                         "model": "absolutereality_V16.safetensors [37db0fc3]",
                         "steps": 25,
                         "cfg_scale": 7,
@@ -516,7 +744,7 @@ class prodia():
                     else:
                         md["height"] = ""
                 except Exception as e:
-                    md: {
+                    md = {
                         "prompt_negative": "",
                         "model": "absolutereality_v181.safetensors [3d9d4d2b]",
                         "sampling_method": "DPM++ 2M Karras",
@@ -689,7 +917,7 @@ class prodia():
                     else:
                         md["height"] = ""
                 except Exception as e:
-                    md: {
+                    md = {
                         "prompt_negative": "",
                         "model": "absolutereality_v181.safetensors [3d9d4d2b]",
                         "sampling_method": "DPM++ 2M Karras",
@@ -878,7 +1106,7 @@ class pixart():
                     else:
                         md["sa_inference_steps"] = 14
                 except Exception as e:
-                    md: {
+                    md = {
                         "prompt_negative": "",
                         "sampler": "DPM-Solver",
                         "image_style": "(No style)",
@@ -1041,7 +1269,7 @@ class pixart():
                     else:
                         md["prompt_negative"] = ""
                 except Exception as e:
-                    md: {
+                    md = {
                         "prompt_negative": "",
                         "image_style": "(No style)",
                         "width": 1024,
@@ -1272,7 +1500,7 @@ class stablediffusion():
                     else:
                         md["guidance_scale"] = 9
                 except Exception as e:
-                    md: {
+                    md = {
                         "prompt_negative": "",
                         "guidance_scale": 9
                     }
@@ -1407,7 +1635,7 @@ class stablediffusion():
                     else:
                         md["image_style"] = "(No style)"
                 except Exception as e:
-                    md: {
+                    md = {
                         "prompt_negative": "",
                         "image_style": "(No style)",
                         "guidance_scale": 7.5
@@ -1636,6 +1864,228 @@ class bing():
                     "model": "Bing",
                     "markdown": False,
                     "stream": False
+                })
+
+            response = requests.post(url="https://nexra.aryahcr.cc/api/chat/complements", headers=headers, data=data, stream=strm)
+            if response.status_code == 200:
+                if strm != True:
+                    self.bingdata = None
+                    err = None
+                    result = None
+
+                    count = -1
+                    for i in range(len(response.text)):
+                        if count <= -1:
+                            if response.text[i] == "{":
+                                count = i
+                        else:
+                            break
+                    
+                    if count <= -1:
+                        err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                        result = None
+                    else:
+                        try:
+                            js = response.text[count:]
+                            js = json.loads(js)
+                            if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                                result = js
+                                err = None
+                            else:
+                                err = js
+                                result = None
+                        except Exception as e:
+                            err = {
+                                "code": 500,
+                                "status": False,
+                                "error": "INTERNAL_SERVER_ERROR",
+                                "message": "general (unknown) error"
+                            }
+                            result = None
+
+                        if result == None and err != None:
+                            self.error = err
+                            self.result = None
+                        else:
+                            self.result = result
+                            self.error = None
+                else:
+                    self.error = None
+                    self.result = None
+                    self.bingdata = response
+            else:
+                data_err = {}
+                try:
+                    data_err = json.loads(response.text)
+                except Exception as e:
+                    data_err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                
+                self.bingdata = None
+                self.error = data_err
+                self.result = None
+        except Exception as e:
+            self.error = {
+                "code": 500,
+                "status": False,
+                "error": "INTERNAL_SERVER_ERROR",
+                "message": "general (unknown) error"
+            }
+            self.bingdata = None
+            self.result = None
+        pass
+    def stream(self):
+        if self.bingdata != None:
+            try:
+                tmp = None
+                err = None
+                for chunk in self.bingdata.iter_content(chunk_size=1024):
+                    if err == None:
+                        if chunk:
+                            chk = chunk.decode()
+                            chk = chk.split("")
+
+                            for data in chk:
+                                result = None
+
+                                try:
+                                    convert = json.loads(data)
+                                    result = data
+                                    tmp = None
+                                except Exception as e:
+                                    if tmp == None:
+                                        tmp = data
+                                    else:
+                                        try:
+                                            convert = json.loads(tmp)
+                                            result = tmp
+                                            tmp = None
+                                        except Exception as e:
+                                            tmp = tmp + data
+                                            try:
+                                                convert = json.loads(tmp)
+                                                result = tmp
+                                                tmp = None
+                                            except Exception as e:
+                                                tmp = tmp
+                                
+                                if result != None:
+                                    if "code" not in result and "status" not in result:
+                                        yield json.loads(result)
+                                    else:
+                                        err = result
+                                        yield json.loads(err)
+            except Exception as e:
+                yield {"message":None,"original":None,"finish":True,"error":True}
+        else:
+            yield {"message":None,"original":None,"finish":True,"error":True}
+        pass
+    def error(self):
+        return self.error
+    def result(self):
+        return self.result
+
+class llama2():
+    error = None
+    result = None
+    def __init__(self, messages=[], data={
+        "system_message": "",
+        "temperature": "",
+        "max_tokens": "",
+        "top_p": "",
+        "repetition_penalty": "",
+    }, markdown=False, stream=False) -> None:
+        try:
+            headers = {
+                "Content-Type": "application/json"
+            }
+
+            data = json.dumps({})
+
+            strm = False
+            try:
+                if stream != None and stream == True:
+                    strm = True
+                else:
+                    strm = False
+            except Exception as e:
+                strm = False
+
+            md = {
+                "system_message": "",
+                "temperature": 0.9,
+                "max_tokens": 4096,
+                "top_p": 0.6,
+                "repetition_penalty": 1.2,
+            }
+
+            try:
+                prompt = prompt if prompt is not None else ""
+            except Exception as e:
+                prompt = ""
+
+            try :
+                if data.get("system_message") != None:
+                    md["system_message"] = data.get("system_message")
+                else:
+                    md["system_message"] = ""
+
+                if data.get("temperature") != None:
+                    md["temperature"] = data.get("temperature")
+                else:
+                    md["temperature"] = 0.9
+                
+                if data.get("max_tokens") != None:
+                    md["max_tokens"] = data.get("max_tokens")
+                else:
+                    md["max_tokens"] = 4096
+                
+                if data.get("top_p") != None:
+                    md["top_p"] = data.get("top_p")
+                else:
+                    md["top_p"] = 0.6
+                
+                if data.get("repetition_penalty") != None:
+                    md["repetition_penalty"] = data.get("repetition_penalty")
+                else:
+                    md["repetition_penalty"] = 1.2
+            except Exception as e:
+                md = {
+                    "system_message": "",
+                    "temperature": 0.9,
+                    "max_tokens": 4096,
+                    "top_p": 0.6,
+                    "repetition_penalty": 1.2,
+                }
+
+            data = {}
+            try:
+                data = json.dumps({
+                    "messages": messages if messages is not None else [],
+                    "markdown": markdown if markdown is not None else False,
+                    "stream": strm if strm is not None else False,
+                    "model": "llama2",
+                    "data": md
+                })
+            except Exception as e:
+                data = json.dumps({
+                    "messages": [],
+                    "markdown": False,
+                    "stream": False,
+                    "model": "llama2",
+                    "data": {
+                        "gpu": False,
+                        "prompt_improvement": False
+                    }
                 })
 
             response = requests.post(url="https://nexra.aryahcr.cc/api/chat/complements", headers=headers, data=data, stream=strm)
