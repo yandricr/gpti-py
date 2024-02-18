@@ -2215,3 +2215,243 @@ class llama2():
         return self.error
     def result(self):
         return self.result
+    
+class render3d():
+    error = None
+    result = None
+    def __init__(self, prompt="", data={
+        "prompt_negative": ""
+    }) -> None:
+        try:
+            headers = {
+                "Content-Type": "application/json"
+            }
+
+            try:
+                prompt = prompt if prompt is not None else ""
+            except Exception as e:
+                prompt = ""
+
+            md = {
+                "prompt_negative": ""
+            }
+
+            try :
+                if data.get("prompt_negative") != None:
+                    md["prompt_negative"] = data.get("prompt_negative")
+                else:
+                    md["prompt_negative"] = ""
+            except Exception as e:
+                md = {
+                    "prompt_negative": ""
+                }
+
+            data = {}
+            try:
+                data = json.dumps({
+                    "prompt": prompt,
+                    "model": "render3d",
+                    "data": md
+                })
+            except Exception as e:
+                data = json.dumps({
+                    "prompt": "",
+                    "model": "render3d",
+                    "data": {
+                        "prompt_negative": ""
+                    }
+                })
+            
+            response = requests.post(url="https://nexra.aryahcr.cc/api/image/complements", headers=headers, data=data)
+            if response.status_code == 200:
+                err = None
+                result = None
+
+                count = -1
+                for i in range(len(response.text)):
+                    if count <= -1:
+                        if response.text[i] == "{":
+                            count = i
+                    else:
+                        break
+                
+                if count <= -1:
+                    err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                    result = None
+                else:
+                    try:
+                        js = response.text[count:]
+                        js = json.loads(js)
+                        if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                            result = js
+                            err = None
+                        else:
+                            err = js
+                            result = None
+                    except Exception as e:
+                        err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                        result = None
+
+                    if result == None and err != None:
+                        self.error = err
+                        self.result = None
+                    else:
+                        self.result = result
+                        self.error = None
+            else:
+                data_err = {}
+                try:
+                    data_err = json.loads(response.text)
+                except Exception as e:
+                    data_err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                
+                self.error = data_err
+                self.result = None
+        except Exception as e:
+            self.error = {
+                "code": 500,
+                "status": False,
+                "error": "INTERNAL_SERVER_ERROR",
+                "message": "general (unknown) error"
+            }
+            self.result = None
+        pass
+    def error(self):
+        return self.error
+    def result(self):
+        return self.result
+
+class pixelart():
+    error = None
+    result = None
+    def __init__(self, prompt="", data={
+        "prompt_negative": ""
+    }) -> None:
+        try:
+            headers = {
+                "Content-Type": "application/json"
+            }
+
+            try:
+                prompt = prompt if prompt is not None else ""
+            except Exception as e:
+                prompt = ""
+
+            md = {
+                "prompt_negative": ""
+            }
+
+            try :
+                if data.get("prompt_negative") != None:
+                    md["prompt_negative"] = data.get("prompt_negative")
+                else:
+                    md["prompt_negative"] = ""
+            except Exception as e:
+                md = {
+                    "prompt_negative": ""
+                }
+
+            data = {}
+            try:
+                data = json.dumps({
+                    "prompt": prompt,
+                    "model": "pixel-art",
+                    "data": md
+                })
+            except Exception as e:
+                data = json.dumps({
+                    "prompt": "",
+                    "model": "pixel-art",
+                    "data": {
+                        "prompt_negative": ""
+                    }
+                })
+            
+            response = requests.post(url="https://nexra.aryahcr.cc/api/image/complements", headers=headers, data=data)
+            if response.status_code == 200:
+                err = None
+                result = None
+
+                count = -1
+                for i in range(len(response.text)):
+                    if count <= -1:
+                        if response.text[i] == "{":
+                            count = i
+                    else:
+                        break
+                
+                if count <= -1:
+                    err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                    result = None
+                else:
+                    try:
+                        js = response.text[count:]
+                        js = json.loads(js)
+                        if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                            result = js
+                            err = None
+                        else:
+                            err = js
+                            result = None
+                    except Exception as e:
+                        err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                        result = None
+
+                    if result == None and err != None:
+                        self.error = err
+                        self.result = None
+                    else:
+                        self.result = result
+                        self.error = None
+            else:
+                data_err = {}
+                try:
+                    data_err = json.loads(response.text)
+                except Exception as e:
+                    data_err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                
+                self.error = data_err
+                self.result = None
+        except Exception as e:
+            self.error = {
+                "code": 500,
+                "status": False,
+                "error": "INTERNAL_SERVER_ERROR",
+                "message": "general (unknown) error"
+            }
+            self.result = None
+        pass
+    def error(self):
+        return self.error
+    def result(self):
+        return self.result

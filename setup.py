@@ -9,7 +9,7 @@ except Exception as e:
 
 setup(
     name='gpti',
-    version='1.2',
+    version='1.3',
     packages=find_packages(),
     install_requires=[
         'requests',
@@ -25,7 +25,7 @@ setup(
         'Funding': 'https://ko-fi.com/yandricr',
         'Source': 'https://github.com/yandricr/gpti-py/'
     },
-    keywords='gpt gpt-3 gpt-3.5 gpt-4 gpti gpt-free ai generate-image prodia bing chat stream dalle stable-diffusion pixart EMI',
+    keywords='gpt gpt-3 gpt-3.5 gpt-4 gpti gpt-free ai generate-image prodia bing chat stream dalle dalle-2 llama-2 stable-diffusion pixart EMI render3d pixel-art',
     license='MIT',
     package_data={'': ['LICENSE']},
     include_package_data=True

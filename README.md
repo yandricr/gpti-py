@@ -1,6 +1,8 @@
 
 # GPTI
 
+![Downloads](https://img.shields.io/pypi/dw/gpti?style=for-the-badge) ![License](https://img.shields.io/pypi/l/gpti?style=for-the-badge) [![Contributors](https://img.shields.io/github/contributors/yandricr/gpti-py?style=for-the-badge)](https://github.com/yandricr/gpti-py/graphs/contributors) [![Size Package](https://img.shields.io/github/languages/code-size/yandricr/gpti-py?style=for-the-badge)](https://github.com/yandricr/gpti-py) ![Python](https://img.shields.io/badge/python-%233776AB.svg?style=for-the-badge&logo=python&logoColor=white) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/yandricr)
+
 This package simplifies your interaction with various GPT models, eliminating the need for tokens or other methods to access GPT. It also allows you to use three artificial intelligences to generate images: DALL·E, Prodia and more, all of this without restrictions or limits
 
 ## Installation
@@ -15,25 +17,28 @@ pip install gpti
 
 GPTI provides access to a variety of artificial intelligence models to meet various needs. Currently, the available models include:
 
-- **ChatGPT**
-- **ChatGPT Web**
-- **Bing**
-- **LLaMA-2**
-- **DALL·E**
-- **DALL-E 2**
-- **DALL-E Mini**
-- **Prodia**
-- **Prodia Stable-Diffusion**
-- **Prodia Stable-Diffusion XL**
-- **Pixart-A**
-- **Pixart-LCM**
-- **Stable-Diffusion 1.5**
-- **Stable-Diffusion 2.1**
-- **Stable-Diffusion XL**
-- **EMI**
+- [**ChatGPT**](#gpt)
+- [**ChatGPT Web**](#gptweb)
+- [**Bing**](#bing)
+- [**LLaMA-2**](#llama2)
+- [**DALL·E**](#dalle)
+- [**DALL-E 2**](#dalle2)
+- [**DALL-E Mini**](#dalle-mini)
+- [**Prodia**](#prodia)
+- [**Prodia Stable-Diffusion**](#prodia-stablediffusion)
+- [**Prodia Stable-Diffusion XL**](#prodia-stablediffusion-xl)
+- [**Pixart-A**](#pixart-a)
+- [**Pixart-LCM**](#pixart-lcm)
+- [**Stable-Diffusion 1.5**](#stablediffusion-1.5)
+- [**Stable-Diffusion 2.1**](#stablediffusion-2.1)
+- [**Stable-Diffusion XL**](#stablediffusion-xl)
+- [**EMI**](#emi)
+- [**Render3D**](#render3d)
+- [**PixelArt**](#pixelart)
 
 These are just some examples of the models available in this package. I will continue expanding to include an even greater variety of models.
 
+<a id="gpt"></a>
 ## Usage GPT
 
 ```python
@@ -101,6 +106,7 @@ Select one of these available models in the API to enhance your experience.
 - babbage-002
 - davinci-002
 
+<a id="gptweb"></a>
 ## Usage GPT Web
 
 GPT-4 has been enhanced by me, but errors may arise due to technological complexity. It is advisable to exercise caution when relying entirely on its accuracy for online queries.
@@ -128,6 +134,7 @@ else:
 }
 ```
 
+<a id="bing"></a>
 ## Usage Bing
 
 ```python
@@ -161,7 +168,7 @@ else:
 
 #### JSON
 
-```js
+```json
 {
     "code": 200,
     "status": true,
@@ -205,7 +212,7 @@ else:
 
 #### JSON
 
-```js
+```json
 {"message": "I", "original": null, "finish": false, "error": false}
 {"message": "I have", "original": null, "finish": false, "error": false}
 {"message": "I have told", "original": null, "finish": false, "error": false}
@@ -247,6 +254,7 @@ else:
 | markdown           | false    | You can convert the dialogues into continuous streams or not into Markdown                                |
 | stream             | false    | You are given the option to choose whether you prefer the responses to be in real-time or not            |
 
+<a id="llama2"></a>
 ## Usage LLaMA-2
 
 ```python
@@ -384,6 +392,7 @@ else:
 | markdown          | false   | You can convert the dialogues into continuous streams or not into Markdown |
 | stream            | false   | You are given the option to choose whether you prefer the responses to be in real-time or not |
 
+<a id="dalle"></a>
 ## Usage DALL·E
 
 ```python
@@ -412,6 +421,7 @@ else:
 }
 ```
 
+<a id="dalle2"></a>
 ## Usage DALL·E 2
 
 ```python
@@ -448,6 +458,7 @@ else:
 }
 ```
 
+<a id="dalle-mini"></a>
 ## Usage DALL·E Mini
 
 ```python
@@ -477,6 +488,7 @@ else:
 }
 ```
 
+<a id="prodia"></a>
 ## Usage Prodia
 
 ```python
@@ -589,6 +601,7 @@ List of models
 | steps           | 25                               | Min: 1, Max: 30                       |
 | sampler         | DPM++ 2M Karras                  | Select from these: "Euler","Euler a","Heun","DPM++ 2M Karras","DPM++ SDE Karras","DDIM" |
 
+<a id="prodia-stablediffusion"></a>
 ## Usage Prodia Stable-Diffusion
 
 ```python
@@ -735,6 +748,7 @@ List of methods:
 | height           | 512                                   | Min: 50, Max: 1024                       |
 | cfg_scale        | 7                                     | Min: 1, Max: 20                          |
 
+<a id="prodia-stablediffusion-xl"></a>
 ## Usage Prodia Stable-Diffusion XL
 
 ```python
@@ -824,9 +838,10 @@ List of methods:
 | height           | 1024                             | Min: 512, Max: 1536                      |
 | cfg_scale        | 7                                | Min: 1, Max: 20                          |
 
+<a id="pixart-a"></a>
 ## Usage Pixart-A
 
-```js
+```python
 import json
 from gpti import pixart
 
@@ -887,9 +902,10 @@ else:
 | sa_guidance_scale    | 3            | Min: 1, Max: 10                                      |
 | sa_inference_steps   | 25           | Min: 10, Max: 40                                     |
 
+<a id="pixart-lcm"></a>
 ## Usage Pixart-LCM
 
-```js
+```python
 import json
 from gpti import pixart
 
@@ -938,9 +954,10 @@ else:
 | height                | 1024       | Min: 256, Max: 2048                                                                          |
 | lcm_inference_steps   | 9          | Min: 1, Max: 30                                                                              |
 
+<a id="stablediffusion-1.5"></a>
 ## Usage Stable-Diffusion 1.5
 
-```js
+```python
 import json
 from gpti import stablediffusion
 
@@ -967,9 +984,10 @@ else:
 }
 ```
 
+<a id="stablediffusion-2.1"></a>
 ## Usage Stable-Diffusion 2.1
 
-```js
+```python
 import json
 from gpti import stablediffusion
 
@@ -1010,9 +1028,10 @@ else:
 | prompt_negative   |         | Indicates what the AI should not do    |
 | guidance_scale    | 9       | Min: 0 Max: 50                        |
 
+<a id="stablediffusion-xl"></a>
 ## Usage Stable-Diffusion XL
 
-```js
+```python
 import json
 from gpti import stablediffusion
 
@@ -1056,9 +1075,10 @@ else:
 | image_style       | (No style)    | Choose from various available image types: "(No style)", "Cinematic", "Photographic", "Anime", "Manga", "Digital Art", "Pixel art", "Fantasy art", "Neonpunk", "3D Model" |
 | guidance_scale    | 7.5            | Min: 0, Max: 50                                                                                        |
 
+<a id="emi"></a>
 ## Usage EMI
 
-```js
+```python
 import json
 from gpti import emi
 
@@ -1085,6 +1105,74 @@ else:
 }
 ```
 
+<a id="render3d"></a>
+## Usage Render3D
+
+```python
+import json
+from gpti import render3d
+
+res = render3d(prompt="In a remote corner of the galaxy, a star agonizes in its final stage of life. Its brightness, once dazzling, now fades slowly into the void of space, while a bright nebula forms around it.", data={
+    "prompt_negative": ""
+})
+
+if res.error != None:
+    print(json.dumps(res.error))
+else:
+    print(json.dumps(res.result))
+```
+
+#### JSON
+
+```json
+{
+    "code": 200,
+    "status": true,
+    "prompt": "In a remote corner of the galaxy, a star agonizes in its final stage of life. Its brightness, once dazzling, now fades slowly into the void of space, while a bright nebula forms around it.",
+    "model": "Render3D",
+    "data": {
+        "prompt_negative": ""
+    },
+    "images": [
+        "data:image/jpeg;base64,..."
+    ]
+}
+```
+
+<a id="pixelart"></a>
+## Usage PixelArt
+
+```python
+import json
+from gpti import pixelart
+
+res = pixelart(prompt="A coastal city in the golden hour of the sunset. The sun slowly slips toward the horizon, tinting the sky with golden and pink hues. Skyscrapers stand out against this heavenly backdrop, reflecting the light in their glass windows. In the streets, lights flicker timidly, getting ready to illuminate the night.", data={
+    "prompt_negative": ""
+})
+
+if res.error != None:
+    print(json.dumps(res.error))
+else:
+    print(json.dumps(res.result))
+```
+
+#### JSON
+
+```json
+{
+    "code": 200,
+    "status": true,
+    "prompt": "A coastal city in the golden hour of the sunset. The sun slowly slips toward the horizon, tinting the sky with golden and pink hues. Skyscrapers stand out against this heavenly backdrop, reflecting the light in their glass windows. In the streets, lights flicker timidly, getting ready to illuminate the night.",
+    "model": "PixelArt",
+    "data": {
+        "prompt_negative": ""
+    },
+    "images": [
+        "data:image/jpeg;base64,..."
+    ]
+}
+```
+
 ## API Reference
 
 At present, the API doesn't have any access restrictions or usage limits. For further details and examples, please refer to the complete [documentation](https://nexra.aryahcr.cc/).
@@ -1098,3 +1186,11 @@ These are the error codes that will be presented in case the API fails.
 | 400  | BAD_REQUEST            | Not all parameters have been entered correctly |
 | 500  | INTERNAL_SERVER_ERROR  | The server has experienced failures             |
 | 200  |                        | The API worked without issues                    |
+
+## ☕ Do you want to support this project?
+
+If this package has helped you save time or solve a problem, consider inviting me for a coffee through Ko-fi. Your support helps me maintain and improve this project for you and other users like you. Furthermore, each donation contributes to the creation and free availability of more AI models in the future. Every small donation counts and is greatly appreciated!
+
+[![Support on Ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/yandricr)
+
+Remember: Programmers don't need coffee... but it helps a lot! 😉
