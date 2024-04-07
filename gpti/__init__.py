@@ -1,6 +1,16 @@
 import requests
 import json
 
+cred = {
+    "x-nexra-user": None,
+    "x-nexra-secret": None
+}
+
+def nexra(user, secret):
+    cred["x-nexra-secret"] = secret
+    cred["x-nexra-user"] = user
+
+
 class gpt:
     error = None
     result = None
@@ -299,18 +309,23 @@ class dalle:
         error = None
         result = None
         def __init__(self, prompt="", data={
-            "gpu": "",
-            "prompt_improvement": ""
+            "prompt_negative": "",
+            "width": "",
+            "height": "",
+            "guidance_scale": ""
         }) -> None:
             try:
                 headers = {
                     "Content-Type": "application/json"
                 }
+                headers.update(cred)
                 err = False
                 
                 md = {
-                    "gpu": False,
-                    "prompt_improvement": False
+                    "prompt_negative": "",
+                    "width": 1024,
+                    "height": 1024,
+                    "guidance_scale": 6
                 }
 
                 try:
@@ -319,19 +334,31 @@ class dalle:
                     prompt = ""
 
                 try :
-                    if data.get("gpu") != None:
-                        md["gpu"] = data.get("gpu")
+                    if data.get("prompt_negative") != None:
+                        md["prompt_negative"] = data.get("prompt_negative")
                     else:
-                        md["gpu"] = False
+                        md["prompt_negative"] = ""
 
-                    if data.get("prompt_improvement") != None:
-                        md["prompt_improvement"] = data.get("prompt_improvement")
+                    if data.get("width") != None:
+                        md["width"] = data.get("width")
                     else:
-                        md["prompt_improvement"] = False
+                        md["width"] = 1024
+
+                    if data.get("height") != None:
+                        md["height"] = data.get("height")
+                    else:
+                        md["height"] = 1024
+
+                    if data.get("guidance_scale") != None:
+                        md["guidance_scale"] = data.get("guidance_scale")
+                    else:
+                        md["guidance_scale"] = 6
                 except Exception as e:
                     md = {
-                        "gpu": False,
-                        "prompt_improvement": False
+                        "prompt_negative": "",
+                        "width": 1024,
+                        "height": 1024,
+                        "guidance_scale": 6
                     }
 
                 data = {}
@@ -346,8 +373,10 @@ class dalle:
                         "prompt": "",
                         "model": "dalle2",
                         "data": {
-                            "gpu": False,
-                            "prompt_improvement": False
+                            "prompt_negative": "",
+                            "width": 1024,
+                            "height": 1024,
+                            "guidance_scale": 6
                         }
                     })
                 
@@ -865,6 +894,7 @@ class prodia():
                 headers = {
                     "Content-Type": "application/json"
                 }
+                headers.update(cred)
 
                 try:
                     prompt = prompt if prompt is not None else ""
@@ -1042,6 +1072,7 @@ class pixart():
                 headers = {
                     "Content-Type": "application/json"
                 }
+                headers.update(cred)
 
                 try:
                     prompt = prompt if prompt is not None else ""
@@ -1229,6 +1260,7 @@ class pixart():
                 headers = {
                     "Content-Type": "application/json"
                 }
+                headers.update(cred)
 
                 try:
                     prompt = prompt if prompt is not None else ""
@@ -1607,6 +1639,7 @@ class stablediffusion():
                 headers = {
                     "Content-Type": "application/json"
                 }
+                headers.update(cred)
 
                 try:
                     prompt = prompt if prompt is not None else ""
@@ -2226,6 +2259,7 @@ class render3d():
             headers = {
                 "Content-Type": "application/json"
             }
+            headers.update(cred)
 
             try:
                 prompt = prompt if prompt is not None else ""
@@ -2336,6 +2370,356 @@ class render3d():
     def result(self):
         return self.result
 
+class animagine():
+    error = None
+    result = None
+    def __init__(self, prompt="", data={
+        "prompt_negative": "",
+        "width": "",
+        "height": "",
+        "guidance_scale": "",
+        "quality_tags": "",
+        "style_present": "",
+        "strength": "",
+        "upscale": "",
+        "sampler": "",
+        "inference_steps": "",
+    }) -> None:
+        try:
+            headers = {
+                "Content-Type": "application/json"
+            }
+            headers.update(cred)
+
+            try:
+                prompt = prompt if prompt is not None else ""
+            except Exception as e:
+                prompt = ""
+
+            md = {
+                "prompt_negative": "",
+                "width": 1024,
+                "height": 1024,
+                "guidance_scale": 7,
+                "quality_tags": "Standard",
+                "style_present": "(None)",
+                "strength": 0.5,
+                "upscale": 1.5,
+                "sampler": "Euler a",
+                "inference_steps": 28,
+            }
+
+            try :
+                if data.get("prompt_negative") != None:
+                    md["prompt_negative"] = data.get("prompt_negative")
+                else:
+                    md["prompt_negative"] = ""
+                
+                if data.get("width") != None:
+                    md["width"] = data.get("width")
+                else:
+                    md["width"] = 1024
+                
+                if data.get("height") != None:
+                    md["height"] = data.get("height")
+                else:
+                    md["height"] = 1024
+                
+                if data.get("guidance_scale") != None:
+                    md["guidance_scale"] = data.get("guidance_scale")
+                else:
+                    md["guidance_scale"] = 7
+                
+                if data.get("quality_tags") != None:
+                    md["quality_tags"] = data.get("quality_tags")
+                else:
+                    md["quality_tags"] = "Standard"
+                
+                if data.get("style_present") != None:
+                    md["style_present"] = data.get("style_present")
+                else:
+                    md["style_present"] = "(None)"
+                
+                if data.get("strength") != None:
+                    md["strength"] = data.get("strength")
+                else:
+                    md["strength"] = 0.5
+                
+                if data.get("upscale") != None:
+                    md["upscale"] = data.get("upscale")
+                else:
+                    md["upscale"] = 1.5
+                
+                if data.get("sampler") != None:
+                    md["sampler"] = data.get("sampler")
+                else:
+                    md["sampler"] = "Euler a"
+                
+                if data.get("inference_steps") != None:
+                    md["inference_steps"] = data.get("inference_steps")
+                else:
+                    md["inference_steps"] = 28
+            except Exception as e:
+                md = {
+                    "prompt_negative": "",
+                    "width": 1024,
+                    "height": 1024,
+                    "guidance_scale": 7,
+                    "quality_tags": "Standard",
+                    "style_present": "(None)",
+                    "strength": 0.5,
+                    "upscale": 1.5,
+                    "sampler": "Euler a",
+                    "inference_steps": 28,
+                }
+
+            data = {}
+            try:
+                data = json.dumps({
+                    "prompt": prompt,
+                    "model": "animagine-xl",
+                    "data": md
+                })
+            except Exception as e:
+                data = json.dumps({
+                    "prompt": "",
+                    "model": "animagine-xl",
+                    "data": {
+                        "prompt_negative": "",
+                        "width": 1024,
+                        "height": 1024,
+                        "guidance_scale": 7,
+                        "quality_tags": "Standard",
+                        "style_present": "(None)",
+                        "strength": 0.5,
+                        "upscale": 1.5,
+                        "sampler": "Euler a",
+                        "inference_steps": 28,
+                    }
+                })
+            
+            response = requests.post(url="https://nexra.aryahcr.cc/api/image/complements", headers=headers, data=data)
+            if response.status_code == 200:
+                err = None
+                result = None
+
+                count = -1
+                for i in range(len(response.text)):
+                    if count <= -1:
+                        if response.text[i] == "{":
+                            count = i
+                    else:
+                        break
+                
+                if count <= -1:
+                    err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                    result = None
+                else:
+                    try:
+                        js = response.text[count:]
+                        js = json.loads(js)
+                        if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                            result = js
+                            err = None
+                        else:
+                            err = js
+                            result = None
+                    except Exception as e:
+                        err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                        result = None
+
+                    if result == None and err != None:
+                        self.error = err
+                        self.result = None
+                    else:
+                        self.result = result
+                        self.error = None
+            else:
+                data_err = {}
+                try:
+                    data_err = json.loads(response.text)
+                except Exception as e:
+                    data_err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                
+                self.error = data_err
+                self.result = None
+        except Exception as e:
+            self.error = {
+                "code": 500,
+                "status": False,
+                "error": "INTERNAL_SERVER_ERROR",
+                "message": "general (unknown) error"
+            }
+            self.result = None
+        pass
+    def error(self):
+        return self.error
+    def result(self):
+        return self.result
+
+class playground():
+    error = None
+    result = None
+    def __init__(self, prompt="", data={
+        "prompt_negative": "",
+        "width": "",
+        "height": "",
+        "guidance_scale": ""
+    }) -> None:
+        try:
+            headers = {
+                "Content-Type": "application/json"
+            }
+            headers.update(cred)
+
+            try:
+                prompt = prompt if prompt is not None else ""
+            except Exception as e:
+                prompt = ""
+
+            md = {
+                "prompt_negative": "",
+                "width": 1024,
+                "height": 1024,
+                "guidance_scale": 3
+            }
+
+            try :
+                if data.get("prompt_negative") != None:
+                    md["prompt_negative"] = data.get("prompt_negative")
+                else:
+                    md["prompt_negative"] = ""
+                
+                if data.get("width") != None:
+                    md["width"] = data.get("width")
+                else:
+                    md["width"] = 1024
+                
+                if data.get("height") != None:
+                    md["height"] = data.get("height")
+                else:
+                    md["height"] = 1024
+                
+                if data.get("guidance_scale") != None:
+                    md["guidance_scale"] = data.get("guidance_scale")
+                else:
+                    md["guidance_scale"] = 3
+            except Exception as e:
+                md = {
+                    "prompt_negative": "",
+                    "width": 1024,
+                    "height": 1024,
+                    "guidance_scale": 3
+                }
+
+            data = {}
+            try:
+                data = json.dumps({
+                    "prompt": prompt,
+                    "model": "playground",
+                    "data": md
+                })
+            except Exception as e:
+                data = json.dumps({
+                    "prompt": "",
+                    "model": "playground",
+                    "data": {
+                        "prompt_negative": "",
+                        "width": 1024,
+                        "height": 1024,
+                        "guidance_scale": 3
+                    }
+                })
+            
+            response = requests.post(url="https://nexra.aryahcr.cc/api/image/complements", headers=headers, data=data)
+            if response.status_code == 200:
+                err = None
+                result = None
+
+                count = -1
+                for i in range(len(response.text)):
+                    if count <= -1:
+                        if response.text[i] == "{":
+                            count = i
+                    else:
+                        break
+                
+                if count <= -1:
+                    err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                    result = None
+                else:
+                    try:
+                        js = response.text[count:]
+                        js = json.loads(js)
+                        if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                            result = js
+                            err = None
+                        else:
+                            err = js
+                            result = None
+                    except Exception as e:
+                        err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                        result = None
+
+                    if result == None and err != None:
+                        self.error = err
+                        self.result = None
+                    else:
+                        self.result = result
+                        self.error = None
+            else:
+                data_err = {}
+                try:
+                    data_err = json.loads(response.text)
+                except Exception as e:
+                    data_err = {
+                        "code": 500,
+                        "status": False,
+                        "error": "INTERNAL_SERVER_ERROR",
+                        "message": "general (unknown) error"
+                    }
+                
+                self.error = data_err
+                self.result = None
+        except Exception as e:
+            self.error = {
+                "code": 500,
+                "status": False,
+                "error": "INTERNAL_SERVER_ERROR",
+                "message": "general (unknown) error"
+            }
+            self.result = None
+        pass
+    def error(self):
+        return self.error
+    def result(self):
+        return self.result
+
 class pixelart():
     error = None
     result = None
@@ -2346,6 +2730,7 @@ class pixelart():
             headers = {
                 "Content-Type": "application/json"
             }
+            headers.update(cred)
 
             try:
                 prompt = prompt if prompt is not None else ""

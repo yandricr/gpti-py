@@ -22,21 +22,31 @@ GPTI provides access to a variety of artificial intelligence models to meet vari
 - [**Bing**](#bing)
 - [**LLaMA-2**](#llama2)
 - [**DALL·E**](#dalle)
-- [**DALL-E 2**](#dalle2)
+- [**DALL-E 2**](#dalle2) (PRO)
 - [**DALL-E Mini**](#dalle-mini)
 - [**Prodia**](#prodia)
 - [**Prodia Stable-Diffusion**](#prodia-stablediffusion)
-- [**Prodia Stable-Diffusion XL**](#prodia-stablediffusion-xl)
-- [**Pixart-A**](#pixart-a)
-- [**Pixart-LCM**](#pixart-lcm)
+- [**Prodia Stable-Diffusion XL**](#prodia-stablediffusion-xl) (PRO)
+- [**Pixart-A**](#pixart-a) (PRO)
+- [**Pixart-LCM**](#pixart-lcm) (PRO)
 - [**Stable-Diffusion 1.5**](#stablediffusion-1.5)
 - [**Stable-Diffusion 2.1**](#stablediffusion-2.1)
-- [**Stable-Diffusion XL**](#stablediffusion-xl)
+- [**Stable-Diffusion XL**](#stablediffusion-xl) (PRO)
 - [**EMI**](#emi)
-- [**Render3D**](#render3d)
-- [**PixelArt**](#pixelart)
+- [**Render3D**](#render3d) (PRO)
+- [**PixelArt**](#pixelart) (PRO)
+- [**Animagine-XL**](#animagine-xl) (PRO)
+- [**Playground**](#playground) (PRO)
 
-These are just some examples of the models available in this package. I will continue expanding to include an even greater variety of models.
+## Api key
+
+If you want to access the premium models, enter your credentials. You can obtain them by [clicking here](https://nexra.aryahcr.cc/api-key/en).
+
+```python
+from gpti import nexra
+
+nexra("user-xxxxxxxx", "nx-xxxxxxx-xxxxx-xxxxx");
+```
 
 <a id="gpt"></a>
 ## Usage GPT
@@ -422,7 +432,7 @@ else:
 ```
 
 <a id="dalle2"></a>
-## Usage DALL·E 2
+## Usage DALL·E 2 (PRO)
 
 ```python
 import json
@@ -544,6 +554,8 @@ List of models
 - anythingV5_PrtRE.safetensors [893e49b9]
 - AOM3A3_orangemixs.safetensors [9600da17]
 - blazing_drive_v10g.safetensors [ca1c1eab]
+- breakdomain_I2428.safetensors [43cc7d2f]
+- breakdomain_M2150.safetensors [15f7afca]
 - cetusMix_Version35.safetensors [de2f2560]
 - childrensStories_v13D.safetensors [9dfaabcb]
 - childrensStories_v1SemiReal.safetensors [a1c56dbb]
@@ -563,8 +575,11 @@ List of models
 - edgeOfRealism_eorV20.safetensors [3ed5de15]
 - EimisAnimeDiffusion_V1.ckpt [4f828a15]
 - elldreths-vivid-mix.safetensors [342d9d26]
+- epicphotogasm_xPlusPlus.safetensors [1a8f6d35]
 - epicrealism_naturalSinRC1VAE.safetensors [90a4c676]
+- epicrealism_pureEvolutionV3.safetensors [42c8440c]
 - ICantBelieveItsNotPhotography_seco.safetensors [4e7a3dfd]
+- indigoFurryMix_v75Hybrid.safetensors [91208cbb]
 - juggernaut_aftermath.safetensors [5e20c455]
 - lofi_v4.safetensors [ccc204d6]
 - lyriel_v16.safetensors [68fceea2]
@@ -586,6 +601,8 @@ List of models
 - rundiffusionFX25D_v10.safetensors [cd12b0ee]
 - rundiffusionFX_v10.safetensors [cd4e694d]
 - sdv1_4.ckpt [7460a6fa]
+- v1-5-pruned-emaonly.safetensors [d7049739]
+- v1-5-inpainting.safetensors [21c7ab71]
 - shoninsBeautiful_v10.safetensors [25d8c546]
 - theallys-mix-ii-churned.safetensors [5d9225a4]
 - timeless-1.0.ckpt [7c4971d4]
@@ -651,9 +668,9 @@ else:
 
 List of models
 
-- absolutereality_v181.safetensors [3d9d4d2b]
 - 3Guofeng3_v34.safetensors [50f420de]
 - absolutereality_V16.safetensors [37db0fc3]
+- absolutereality_v181.safetensors [3d9d4d2b]
 - amIReal_V41.safetensors [0a8a2e61]
 - analog-diffusion-1.0.ckpt [9ca13f02]
 - anythingv3_0-pruned.ckpt [2700c435]
@@ -661,6 +678,8 @@ List of models
 - anythingV5_PrtRE.safetensors [893e49b9]
 - AOM3A3_orangemixs.safetensors [9600da17]
 - blazing_drive_v10g.safetensors [ca1c1eab]
+- breakdomain_I2428.safetensors [43cc7d2f]
+- breakdomain_M2150.safetensors [15f7afca]
 - cetusMix_Version35.safetensors [de2f2560]
 - childrensStories_v13D.safetensors [9dfaabcb]
 - childrensStories_v1SemiReal.safetensors [a1c56dbb]
@@ -680,8 +699,11 @@ List of models
 - edgeOfRealism_eorV20.safetensors [3ed5de15]
 - EimisAnimeDiffusion_V1.ckpt [4f828a15]
 - elldreths-vivid-mix.safetensors [342d9d26]
+- epicphotogasm_xPlusPlus.safetensors [1a8f6d35]
 - epicrealism_naturalSinRC1VAE.safetensors [90a4c676]
+- epicrealism_pureEvolutionV3.safetensors [42c8440c]
 - ICantBelieveItsNotPhotography_seco.safetensors [4e7a3dfd]
+- indigoFurryMix_v75Hybrid.safetensors [91208cbb]
 - juggernaut_aftermath.safetensors [5e20c455]
 - lofi_v4.safetensors [ccc204d6]
 - lyriel_v16.safetensors [68fceea2]
@@ -749,7 +771,7 @@ List of methods:
 | cfg_scale        | 7                                     | Min: 1, Max: 20                          |
 
 <a id="prodia-stablediffusion-xl"></a>
-## Usage Prodia Stable-Diffusion XL
+## Usage Prodia Stable-Diffusion XL (PRO)
 
 ```python
 import json
@@ -798,11 +820,13 @@ else:
 
 List of models:
 
-- sd_xl_base_1.0.safetensors [be9edd61]
 - dreamshaperXL10_alpha2.safetensors [c8afe2ef]
 - dynavisionXL_0411.safetensors [c39cc051]
 - juggernautXL_v45.safetensors [e75f5471]
 - realismEngineSDXL_v10.safetensors [af771c3f]
+- sd_xl_base_1.0.safetensors [be9edd61]
+- sd_xl_base_1.0_inpainting_0.1.safetensors [5679a81a]
+- turbovisionXL_v431.safetensors [78890989]
 
 #### Methods
 
@@ -839,7 +863,7 @@ List of methods:
 | cfg_scale        | 7                                | Min: 1, Max: 20                          |
 
 <a id="pixart-a"></a>
-## Usage Pixart-A
+## Usage Pixart-A (PRO)
 
 ```python
 import json
@@ -903,7 +927,7 @@ else:
 | sa_inference_steps   | 25           | Min: 10, Max: 40                                     |
 
 <a id="pixart-lcm"></a>
-## Usage Pixart-LCM
+## Usage Pixart-LCM (PRO)
 
 ```python
 import json
@@ -1029,7 +1053,7 @@ else:
 | guidance_scale    | 9       | Min: 0 Max: 50                        |
 
 <a id="stablediffusion-xl"></a>
-## Usage Stable-Diffusion XL
+## Usage Stable-Diffusion XL (PRO)
 
 ```python
 import json
@@ -1106,7 +1130,7 @@ else:
 ```
 
 <a id="render3d"></a>
-## Usage Render3D
+## Usage Render3D (PRO)
 
 ```python
 import json
@@ -1140,7 +1164,7 @@ else:
 ```
 
 <a id="pixelart"></a>
-## Usage PixelArt
+## Usage PixelArt (PRO)
 
 ```python
 import json
@@ -1173,24 +1197,117 @@ else:
 }
 ```
 
+<a id="animagine-xl"></a>
+## Usage Animagine-XL (PRO)
+
+```python
+import json
+from gpti import animagine
+
+res = animagine(prompt="An anime girl surrounded by cherry blossoms", data={
+    "prompt_negative": "",
+    "quality_tags": "Standard",
+    "style_present": "(None)",
+    "width": 1024,
+    "height": 1024,
+    "strength": 0.5,
+    "upscale": 1.5,
+    "sampler": "Euler a",
+    "guidance_scale": 7,
+    "inference_steps": 28
+})
+
+if res.error != None:
+    print(json.dumps(res.error))
+else:
+    print(json.dumps(res.result))
+```
+
+#### JSON
+
+```json
+{
+    "code": 200,
+    "status": true,
+    "prompt": "An anime girl surrounded by cherry blossoms",
+    "model": "Animagine-XL",
+    "data": {
+        "prompt_negative": "",
+        "quality_tags": "Standard",
+        "style_present": "(None)",
+        "width": 1024,
+        "height": 1024,
+        "strength": 0.5,
+        "upscale": 1.5,
+        "sampler": "Euler a",
+        "guidance_scale": 7,
+        "inference_steps": 28
+    },
+    "images": [
+        "data:image/jpeg;base64,..."
+    ]
+}
+```
+
+<a id="playground"></a>
+## Usage Playground (PRO)
+
+```python
+import json
+from gpti import playground
+
+res = playground(prompt="An illustration of a red owl with bright blue eye", data={
+    "prompt_negative": "",
+    "width": 1024,
+    "height": 1024,
+    "guidance_scale": 3
+})
+
+if res.error != None:
+    print(json.dumps(res.error))
+else:
+    print(json.dumps(res.result))
+```
+
+#### JSON
+
+```json
+{
+    "code": 200,
+    "status": true,
+    "prompt": "An illustration of a red owl with bright blue eyes.",
+    "model": "Playground",
+    "data": {
+        "prompt_negative": "",
+        "width": 1024,
+        "height": 1024,
+        "guidance_scale": 3
+    },
+    "images": [
+        "data:image/jpeg;base64,..."
+    ]
+}
+```
+
 ## API Reference
 
-At present, the API doesn't have any access restrictions or usage limits. For further details and examples, please refer to the complete [documentation](https://nexra.aryahcr.cc/).
+Currently, some models require your credentials to access them, while others are free. For more details and examples, please refer to the complete [documentation](https://nexra.aryahcr.cc/).
 
 #### Code Errors
 
 These are the error codes that will be presented in case the API fails.
 
-| Code | Error                  | Description                                    |
-|------|------------------------|------------------------------------------------|
-| 400  | BAD_REQUEST            | Not all parameters have been entered correctly |
-| 500  | INTERNAL_SERVER_ERROR  | The server has experienced failures             |
-| 200  |                        | The API worked without issues                    |
+| Code | Error                  | Description                                           |
+|------|------------------------|-------------------------------------------------------|
+| 400  | BAD_REQUEST            | Not all parameters have been entered correctly        |
+| 500  | INTERNAL_SERVER_ERROR  | The server has experienced failures                   |
+| 200  |                        | The API worked without issues                          |
+| 403  | FORBIDDEN              | Your API key has expired and needs to be renewed      |
+| 401  | UNAUTHORIZED           | API credentials are required                          |
+
 
 ## ☕ Do you want to support this project?
 
 If this package has helped you save time or solve a problem, consider inviting me for a coffee through Ko-fi. Your support helps me maintain and improve this project for you and other users like you. Furthermore, each donation contributes to the creation and free availability of more AI models in the future. Every small donation counts and is greatly appreciated!
 
 [![Support on Ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/yandricr)
-
-Remember: Programmers don't need coffee... but it helps a lot! 😉
