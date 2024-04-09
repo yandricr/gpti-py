@@ -612,7 +612,7 @@ List of models
 
 | Parameter       | Default                          | Description                           |
 |-----------------|----------------------------------|---------------------------------------|
-| prompt_negative |                                  | Indicates what the AI should not do   |
+| negative_prompt |                                  | Indicates what the AI should not do   |
 | model           | absolutereality_V16.safetensors [37db0fc3] | Select from the list of models |
 | cfg_scale       | 7                                | Min: 0, Max: 20                       |
 | steps           | 25                               | Min: 1, Max: 30                       |
