@@ -10,64 +10,46 @@ def nexra(user, secret):
     cred["x-nexra-secret"] = secret
     cred["x-nexra-user"] = user
 
-
 class gpt:
-    error = None
-    result = None
-    def __init__(self, messages=[], prompt="", model="", markdown=False) -> None:
-        try:
-            headers = {
-                "Content-Type": "application/json"
-            }
-
-            data = json.dumps({})
+    class v1:
+        error = None
+        result = None
+        def __init__(self, messages=[], prompt="", model="", markdown=False) -> None:
             try:
-                data = json.dumps({
-                    "messages": messages if messages is not None else [],
-                    "prompt": prompt if prompt is not None else "",
-                    "model": model if model is not None else "GPT-4",
-                    "markdown": markdown if markdown is not None else False
-                })
-            except Exception as e:
-                data = json.dumps({
-                    "messages": [],
-                    "prompt": "",
-                    "model": "GPT-4",
-                    "markdown": False
-                })
+                headers = {
+                    "Content-Type": "application/json"
+                }
 
-            response = requests.post(url="https://nexra.aryahcr.cc/api/chat/gpt", headers=headers, data=data)
-            if response.status_code == 200:
-                err = None
-                result = None
+                data = json.dumps({})
+                try:
+                    data = json.dumps({
+                        "messages": messages if messages is not None else [],
+                        "prompt": prompt if prompt is not None else "",
+                        "model": model if model is not None else "GPT-4",
+                        "markdown": markdown if markdown is not None else False
+                    })
+                except Exception as e:
+                    data = json.dumps({
+                        "messages": [],
+                        "prompt": "",
+                        "model": "GPT-4",
+                        "markdown": False
+                    })
 
-                count = -1
-                for i in range(len(response.text)):
-                    if count <= -1:
-                        if response.text[i] == "{":
-                            count = i
-                    else:
-                        break
-                
-                if count <= -1:
-                    err = {
-                        "code": 500,
-                        "status": False,
-                        "error": "INTERNAL_SERVER_ERROR",
-                        "message": "general (unknown) error"
-                    }
+                response = requests.post(url="https://nexra.aryahcr.cc/api/chat/gpt", headers=headers, data=data)
+                if response.status_code == 200:
+                    err = None
                     result = None
-                else:
-                    try:
-                        js = response.text[count:]
-                        js = json.loads(js)
-                        if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
-                            result = js
-                            err = None
+
+                    count = -1
+                    for i in range(len(response.text)):
+                        if count <= -1:
+                            if response.text[i] == "{":
+                                count = i
                         else:
-                            err = js
-                            result = None
-                    except Exception as e:
+                            break
+                    
+                    if count <= -1:
                         err = {
                             "code": 500,
                             "status": False,
@@ -75,94 +57,255 @@ class gpt:
                             "message": "general (unknown) error"
                         }
                         result = None
-
-                    if result == None and err != None:
-                        self.error = err
-                        self.result = None
                     else:
-                        self.result = result
-                        self.error = None
-            else:
-                data_err = {}
-                try:
-                    data_err = json.loads(response.text)
-                except Exception as e:
-                    data_err = {
-                        "code": 500,
-                        "status": False,
-                        "error": "INTERNAL_SERVER_ERROR",
-                        "message": "general (unknown) error"
-                    }
-                
-                self.error = data_err
-                self.result = None
-        except Exception as e:
-            self.error = {
-                "code": 500,
-                "status": False,
-                "error": "INTERNAL_SERVER_ERROR",
-                "message": "general (unknown) error"
-            }
-            self.result = None
-        pass
-    def error(self):
-        return self.error
-    def result(self):
-        return self.result
-
-class gptweb:
-    error = None
-    result = None
-    def __init__(self, prompt="", markdown=False) -> None:
-        try:
-            headers = {
-                "Content-Type": "application/json"
-            }
-
-            data = json.dumps({})
-            try:
-                data = json.dumps({
-                    "prompt": prompt if prompt is not None else "",
-                    "markdown": markdown if markdown is not None else False
-                })
-            except Exception as e:
-                data = json.dumps({
-                    "prompt": "",
-                    "markdown": False
-                })
-
-            response = requests.post(url="https://nexra.aryahcr.cc/api/chat/gptweb", headers=headers, data=data)
-            if response.status_code == 200:
-                err = None
-                result = None
-
-                count = -1
-                for i in range(len(response.text)):
-                    if count <= -1:
-                        if response.text[i] == "{":
-                            count = i
-                    else:
-                        break
-                
-                if count <= -1:
-                    err = {
-                        "code": 500,
-                        "status": False,
-                        "error": "INTERNAL_SERVER_ERROR",
-                        "message": "general (unknown) error"
-                    }
-                    result = None
-                else:
-                    try:
-                        js = response.text[count:]
-                        js = json.loads(js)
-                        if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
-                            result = js
-                            err = None
-                        else:
-                            err = js
+                        try:
+                            js = response.text[count:]
+                            js = json.loads(js)
+                            if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                                result = js
+                                err = None
+                            else:
+                                err = js
+                                result = None
+                        except Exception as e:
+                            err = {
+                                "code": 500,
+                                "status": False,
+                                "error": "INTERNAL_SERVER_ERROR",
+                                "message": "general (unknown) error"
+                            }
                             result = None
+
+                        if result == None and err != None:
+                            self.error = err
+                            self.result = None
+                        else:
+                            self.result = result
+                            self.error = None
+                else:
+                    data_err = {}
+                    try:
+                        data_err = json.loads(response.text)
                     except Exception as e:
+                        data_err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                    
+                    self.error = data_err
+                    self.result = None
+            except Exception as e:
+                self.error = {
+                    "code": 500,
+                    "status": False,
+                    "error": "INTERNAL_SERVER_ERROR",
+                    "message": "general (unknown) error"
+                }
+                self.result = None
+            pass
+        def error(self):
+            return self.error
+        def result(self):
+            return self.result
+    class v2:
+        error = None
+        result = None
+        def __init__(self, messages=[], conversation_style="", markdown=False, stream=False) -> None:
+            try:
+                headers = {
+                    "Content-Type": "application/json"
+                }
+
+                data = json.dumps({})
+
+                strm = False
+                try:
+                    if stream != None and stream == True:
+                        strm = True
+                    else:
+                        strm = False
+                except Exception as e:
+                    strm = False
+                
+                try:
+                    data = json.dumps({
+                        "messages": messages if messages is not None else [],
+                        "markdown": markdown if markdown is not None else False,
+                        "stream": strm if strm is not None else False,
+                        "model": "chatgpt"
+                    })
+                except Exception as e:
+                    data = json.dumps({
+                        "messages": [],
+                        "model": "chatgpt",
+                        "markdown": False,
+                        "stream": False
+                    })
+
+                response = requests.post(url="https://nexra.aryahcr.cc/api/chat/complements", headers=headers, data=data, stream=strm)
+                if response.status_code == 200:
+                    if strm != True:
+                        self.bingdata = None
+                        err = None
+                        result = None
+
+                        count = -1
+                        for i in range(len(response.text)):
+                            if count <= -1:
+                                if response.text[i] == "{":
+                                    count = i
+                            else:
+                                break
+                        
+                        if count <= -1:
+                            err = {
+                                "code": 500,
+                                "status": False,
+                                "error": "INTERNAL_SERVER_ERROR",
+                                "message": "general (unknown) error"
+                            }
+                            result = None
+                        else:
+                            try:
+                                js = response.text[count:]
+                                js = json.loads(js)
+                                if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                                    result = js
+                                    err = None
+                                else:
+                                    err = js
+                                    result = None
+                            except Exception as e:
+                                err = {
+                                    "code": 500,
+                                    "status": False,
+                                    "error": "INTERNAL_SERVER_ERROR",
+                                    "message": "general (unknown) error"
+                                }
+                                result = None
+
+                            if result == None and err != None:
+                                self.error = err
+                                self.result = None
+                            else:
+                                self.result = result
+                                self.error = None
+                    else:
+                        self.error = None
+                        self.result = None
+                        self.bingdata = response
+                else:
+                    data_err = {}
+                    try:
+                        data_err = json.loads(response.text)
+                    except Exception as e:
+                        data_err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                    
+                    self.bingdata = None
+                    self.error = data_err
+                    self.result = None
+            except Exception as e:
+                self.error = {
+                    "code": 500,
+                    "status": False,
+                    "error": "INTERNAL_SERVER_ERROR",
+                    "message": "general (unknown) error"
+                }
+                self.bingdata = None
+                self.result = None
+            pass
+        def stream(self):
+            if self.bingdata != None:
+                try:
+                    tmp = None
+                    err = None
+                    for chunk in self.bingdata.iter_content(chunk_size=1024):
+                        if err == None:
+                            if chunk:
+                                chk = chunk.decode()
+                                chk = chk.split("")
+
+                                for data in chk:
+                                    result = None
+
+                                    try:
+                                        convert = json.loads(data)
+                                        result = data
+                                        tmp = None
+                                    except Exception as e:
+                                        if tmp == None:
+                                            tmp = data
+                                        else:
+                                            try:
+                                                convert = json.loads(tmp)
+                                                result = tmp
+                                                tmp = None
+                                            except Exception as e:
+                                                tmp = tmp + data
+                                                try:
+                                                    convert = json.loads(tmp)
+                                                    result = tmp
+                                                    tmp = None
+                                                except Exception as e:
+                                                    tmp = tmp
+                                    
+                                    if result != None:
+                                        if "code" not in result and "status" not in result:
+                                            yield json.loads(result)
+                                        else:
+                                            err = result
+                                            yield json.loads(err)
+                except Exception as e:
+                    yield {"message":None,"original":None,"finish":True,"error":True}
+            else:
+                yield {"message":None,"original":None,"finish":True,"error":True}
+            pass
+        def error(self):
+            return self.error
+        def result(self):
+            return self.result
+    class web:
+        error = None
+        result = None
+        def __init__(self, prompt="", markdown=False) -> None:
+            try:
+                headers = {
+                    "Content-Type": "application/json"
+                }
+
+                data = json.dumps({})
+                try:
+                    data = json.dumps({
+                        "prompt": prompt if prompt is not None else "",
+                        "markdown": markdown if markdown is not None else False
+                    })
+                except Exception as e:
+                    data = json.dumps({
+                        "prompt": "",
+                        "markdown": False
+                    })
+
+                response = requests.post(url="https://nexra.aryahcr.cc/api/chat/gptweb", headers=headers, data=data)
+                if response.status_code == 200:
+                    err = None
+                    result = None
+
+                    count = -1
+                    for i in range(len(response.text)):
+                        if count <= -1:
+                            if response.text[i] == "{":
+                                count = i
+                        else:
+                            break
+                    
+                    if count <= -1:
                         err = {
                             "code": 500,
                             "status": False,
@@ -170,40 +313,154 @@ class gptweb:
                             "message": "general (unknown) error"
                         }
                         result = None
-
-                    if result == None and err != None:
-                        self.error = err
-                        self.result = None
                     else:
-                        self.result = result
-                        self.error = None
-            else:
-                data_err = {}
-                try:
-                    data_err = json.loads(response.text)
-                except Exception as e:
-                    data_err = {
-                        "code": 500,
-                        "status": False,
-                        "error": "INTERNAL_SERVER_ERROR",
-                        "message": "general (unknown) error"
-                    }
-                
-                self.error = data_err
+                        try:
+                            js = response.text[count:]
+                            js = json.loads(js)
+                            if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                                result = js
+                                err = None
+                            else:
+                                err = js
+                                result = None
+                        except Exception as e:
+                            err = {
+                                "code": 500,
+                                "status": False,
+                                "error": "INTERNAL_SERVER_ERROR",
+                                "message": "general (unknown) error"
+                            }
+                            result = None
+
+                        if result == None and err != None:
+                            self.error = err
+                            self.result = None
+                        else:
+                            self.result = result
+                            self.error = None
+                else:
+                    data_err = {}
+                    try:
+                        data_err = json.loads(response.text)
+                    except Exception as e:
+                        data_err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                    
+                    self.error = data_err
+                    self.result = None
+            except Exception as e:
+                self.error = {
+                    "code": 500,
+                    "status": False,
+                    "error": "INTERNAL_SERVER_ERROR",
+                    "message": "general (unknown) error"
+                }
                 self.result = None
-        except Exception as e:
-            self.error = {
-                "code": 500,
-                "status": False,
-                "error": "INTERNAL_SERVER_ERROR",
-                "message": "general (unknown) error"
-            }
-            self.result = None
-        pass
-    def error(self):
-        return self.error
-    def result(self):
-        return self.result
+            pass
+        def error(self):
+            return self.error
+        def result(self):
+            return self.result
+    class prompts:
+        error = None
+        result = None
+        def __init__(self, lang="", limit="", offset="") -> None:
+            try:
+                headers = {
+                    "Content-Type": "application/json"
+                }
+
+                data = json.dumps({})
+                try:
+                    data = json.dumps({
+                        "lang": lang if lang is not None else "en",
+                        "limit": limit if limit is not None else 4,
+                        "offset": offset if offset is not None else 0
+                    })
+                except Exception as e:
+                    data = json.dumps({
+                        "lang": "en",
+                        "limit": 4,
+                        "offset": 0
+                    })
+
+                response = requests.post(url="https://nexra.aryahcr.cc/api/chat/random", headers=headers, data=data)
+                if response.status_code == 200:
+                    err = None
+                    result = None
+
+                    count = -1
+                    for i in range(len(response.text)):
+                        if count <= -1:
+                            if response.text[i] == "{":
+                                count = i
+                        else:
+                            break
+                    
+                    if count <= -1:
+                        err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                        result = None
+                    else:
+                        try:
+                            js = response.text[count:]
+                            js = json.loads(js)
+                            if js != None and js["code"] != None and js["code"] == 200 and js["status"] != None and js["status"] == True:
+                                result = js
+                                err = None
+                            else:
+                                err = js
+                                result = None
+                        except Exception as e:
+                            err = {
+                                "code": 500,
+                                "status": False,
+                                "error": "INTERNAL_SERVER_ERROR",
+                                "message": "general (unknown) error"
+                            }
+                            result = None
+
+                        if result == None and err != None:
+                            self.error = err
+                            self.result = None
+                        else:
+                            self.result = result
+                            self.error = None
+                else:
+                    data_err = {}
+                    try:
+                        data_err = json.loads(response.text)
+                    except Exception as e:
+                        data_err = {
+                            "code": 500,
+                            "status": False,
+                            "error": "INTERNAL_SERVER_ERROR",
+                            "message": "general (unknown) error"
+                        }
+                    
+                    self.error = data_err
+                    self.result = None
+            except Exception as e:
+                self.error = {
+                    "code": 500,
+                    "status": False,
+                    "error": "INTERNAL_SERVER_ERROR",
+                    "message": "general (unknown) error"
+                }
+                self.result = None
+            pass
+        def error(self):
+            return self.error
+        def result(self):
+            return self.result
 
 class dalle:
     class v1:
