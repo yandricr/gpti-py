@@ -199,7 +199,6 @@ else:
 #### JSON
 
 ```json
-{"message":"Hello! How are you today?","original":null,"finish":false,"error":false}
 {"message":"","original":null,"finish":false,"error":false}
 {"message":"Of","original":null,"finish":false,"error":false}
 {"message":"Of course","original":null,"finish":false,"error":false}
@@ -258,9 +257,8 @@ res = gpt.prompts(lang="en", limit=4, offset=0)
 
 if res.error != None:
     print(json.dumps(res.error))
-else:
-    for chunk in res.stream():
-        print(json.dumps(chunk))
+else: 
+    print(json.dumps(res.result))
 ```
 
 #### JSON
