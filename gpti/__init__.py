@@ -257,11 +257,16 @@ class gpt:
                                                     tmp = tmp
                                     
                                     if result != None:
-                                        if "code" not in result and "status" not in result:
-                                            yield json.loads(result)
-                                        else:
-                                            err = result
-                                            yield json.loads(err)
+                                        try:
+                                            result = json.loads(result)
+                                            if result.get("code") == None and result.get(
+                                                "status") == None:
+                                                yield result
+                                            else:
+                                                err = result
+                                                yield err
+                                        except Exception as e:
+                                            pass
                 except Exception as e:
                     yield {"message":None,"original":None,"finish":True,"error":True}
             else:
@@ -2269,11 +2274,16 @@ class bing():
                                                 tmp = tmp
                                 
                                 if result != None:
-                                    if "code" not in result and "status" not in result:
-                                        yield json.loads(result)
-                                    else:
-                                        err = result
-                                        yield json.loads(err)
+                                    try:
+                                        result = json.loads(result)
+                                        if result.get("code") == None and result.get(
+                                            "status") == None:
+                                            yield result
+                                        else:
+                                            err = result
+                                            yield err
+                                    except Exception as e:
+                                        pass
             except Exception as e:
                 yield {"message":None,"original":None,"finish":True,"error":True}
         else:
@@ -2491,11 +2501,16 @@ class llama2():
                                                 tmp = tmp
                                 
                                 if result != None:
-                                    if "code" not in result and "status" not in result:
-                                        yield json.loads(result)
-                                    else:
-                                        err = result
-                                        yield json.loads(err)
+                                    try:
+                                        result = json.loads(result)
+                                        if result.get("code") == None and result.get(
+                                            "status") == None:
+                                            yield result
+                                        else:
+                                            err = result
+                                            yield err
+                                    except Exception as e:
+                                        pass
             except Exception as e:
                 yield {"message":None,"original":None,"finish":True,"error":True}
         else:
