@@ -9,7 +9,7 @@ except Exception as e:
 
 setup(
     name='gpti',
-    version='1.8',
+    version='2.0',
     packages=find_packages(),
     install_requires=[
         'requests',

@@ -20,7 +20,6 @@ GPTI provides access to a variety of artificial intelligence models to meet vari
 - [**ChatGPT**](#gpt)
 - [**ChatGPT v2**](#gpt-v2)
 - [**ChatGPT Web**](#gptweb)
-- [**ChatGPT Prompts**](#gpt-prompts)
 - [**Bing**](#bing)
 - [**LLaMA-2**](#llama2)
 - [**DALL·E**](#dalle)
@@ -187,7 +186,7 @@ res = gpt.v2(messages=[
         "role": "user",
         "content": "Can you repeat my name?"
     }
-], markdown=True, stream=False)
+], markdown=False, stream=False)
 
 if res.error != None:
     print(json.dumps(res.error))
@@ -244,21 +243,6 @@ else:
     "gpt": "Yes, I am familiar with the movie Wonka released in 2023. Wonka is a musical fantasy film directed by Paul King, adapted from the character at the center of Roald Dahl's iconic children's book, \"Charlie and the Chocolate Factory.\" The film follows the story of a young and poor Willy Wonka as he dreams of opening a shop in a chocolate-renowned city and discovers that the industry is controlled by a greedy cartel. The film has a rating of 7.1/10 and has received positive reviews with a score of 83% on Rotten Tomatoes. It was released on December 15, 2023, and has earned $552.1 million at the box office. The cast includes actors such as Timothée Chalamet. Unfortunately, I couldn't find information on whether the movie is available on Netflix.",
     "original": null
 }
-```
-
-<a id="gpt-prompts"></a>
-## Usage GPT Prompts
-
-```python
-import json
-from gpti import gpt
-
-res = gpt.prompts(lang="en", limit=4, offset=0)
-
-if res.error != None:
-    print(json.dumps(res.error))
-else: 
-    print(json.dumps(res.result))
 ```
 
 #### JSON
